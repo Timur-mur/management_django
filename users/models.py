@@ -2,7 +2,7 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
-from src.base.services import get_path_avatar, validate_size_image
+from base.services import get_path_avatar, validate_size_image
 
 
 class CustomUser(AbstractUser):
