@@ -7,6 +7,11 @@ def get_path_avatar(instance, file):
     return f'avatar/{instance.id}/{file}'
 
 
+def get_path_file(instance, file):
+    """ Построение пути к файлу, формат: (media)/file/user_id/file
+    """
+    return f'file/{instance.id}/{file}'
+
 def validate_size_image(file_obj):
     max_size = 2
 

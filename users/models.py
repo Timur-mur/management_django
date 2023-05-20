@@ -21,9 +21,9 @@ class CustomUser(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-
+    username = None
     email = models.EmailField(unique=True)
-    # first_name = models.CharField(max_length=30, blank=True)
+    first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=40, blank=True)
     role = models.PositiveSmallIntegerField(choices=ROLES, blank=True, null=True, default=4)
     avatar = models.ImageField(

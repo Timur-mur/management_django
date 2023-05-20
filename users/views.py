@@ -8,7 +8,7 @@ from .serializers import UserInfoSerializer
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def userinfo(request):
+def userinfo(request, ):
     item = CustomUser.objects.all()
     serializer = UserInfoSerializer(item, many=False)
     return Response(serializer.data)
