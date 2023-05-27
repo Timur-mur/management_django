@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from .models import Task
@@ -9,7 +9,7 @@ from .serializers import CreateTaskSerializer, GetTaskSerializer
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def CreateTaskView(request):
     serializer = CreateTaskSerializer(data=request.data)
     if serializer.is_valid():
@@ -19,7 +19,7 @@ def CreateTaskView(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def GetAllTasksView(request):
     item = Task.objects.all()
     serializer = GetTaskSerializer(item, many=True)
@@ -27,10 +27,18 @@ def GetAllTasksView(request):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def GetTaskView(request, task_id):
     item = Task.objects.all.filter(id=task_id)
     serializer = GetTaskSerializer(item, many=False)
+    return Response(serializer.data)\
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def GetTaskExecutorView(request, task_executor_id):
+    item = Task.objects.filter(task_executors=task_executor_id)
+    serializer = GetTaskSerializer(item, many=True)
     return Response(serializer.data)
 
 

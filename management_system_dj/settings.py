@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     'corsheaders',
+
+    'tasks'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -77,7 +79,8 @@ ROOT_URLCONF = 'management_system_dj.urls'
 # REST framework settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated'
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAdminUser'
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
