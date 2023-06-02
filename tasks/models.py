@@ -3,7 +3,7 @@ from users.models import CustomUser
 from base.services import get_path_file
 
 
-class Task(models.Model):
+class Tasks(models.Model):
     WAITING = 1
     ATWORK = 2
     ONINSPECTION = 3
@@ -16,14 +16,12 @@ class Task(models.Model):
     )
 
     task_topic = models.CharField(max_length=50)
-    task_executors = models.ManyToManyField(CustomUser, blank=True)
-    task_number_of_performing = models.IntegerField()
-    task_count_of_performing = models.IntegerField(default=0)
+    task_executor = models.ForeignKey(CustomUser,on_delete=models.CASCADE, blank=True, null=True)
     task_description = models.CharField(max_length=255)
     task_deadline = models.DateField()
     task_status = models.PositiveSmallIntegerField(choices=STATUS, blank=True, null=True, default=1)
     task_flag = models.CharField(max_length=50)
-    task_file = models.FileField(upload_to= get_path_file, blank=True, null=True)
+    task_file = models.FileField(upload_to=get_path_file, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Задача'

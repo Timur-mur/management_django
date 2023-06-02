@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import CustomUser
-from .serializers import UserInfoSerializer, UserFillInfoSerializer, AllUsersSerializer
+from .serializers import UserInfoSerializer, UserFillInfoSerializer, AllUsersSerializer,Edit_Employee_Serializer
 
 
 @api_view(['GET'])
@@ -27,6 +27,17 @@ def allusers(request):
 def filluserinfo(request, user_id):
     item = CustomUser.objects.get(id=user_id)
     serializer = UserFillInfoSerializer(instance=item, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def edit_employee(request, user_id):
+    item = CustomUser.objects.get(id=user_id)
+    serializer = Edit_Employee_Serializer(instance=item, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)

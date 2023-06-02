@@ -8,7 +8,8 @@ class UserInfoSerializer(serializers.ModelSerializer):
         fields = [
             "first_name",
             "last_name",
-            "role"
+            "role",
+            "avatar",
         ]
 
 
@@ -18,6 +19,13 @@ class UserFillInfoSerializer(serializers.ModelSerializer):
         fields = [
             "first_name",
             "last_name",
+            "avatar",
+        ]
+class Edit_Employee_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = [
+            "role",
         ]
 
 

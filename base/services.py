@@ -13,7 +13,7 @@ def get_path_file(instance, file):
     return f'file/{instance.id}/{file}'
 
 def validate_size_image(file_obj):
-    max_size = 2
+    max_size = 100
 
     if file_obj.size > max_size * 1024 * 1024:
         raise ValidationError(f'Максимальный размер файла превышает {max_size}MB')
