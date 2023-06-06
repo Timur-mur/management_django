@@ -13,4 +13,6 @@ urlpatterns = [
     path('accept_task/<str:task_id>', views.AcceptTaskView),
     path('return_task/<str:task_id>', views.ReturnTaskView),
     path('delete_task/<str:task_id>', views.DeleteTaskView),
+    path('count_accepted_tasks/', views.add_count_accepted_task_view),
+    path('get_count_accepted_tasks/', views.get_count_acepted_task_view),
 ]

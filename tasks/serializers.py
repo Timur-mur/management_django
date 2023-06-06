@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tasks
+from .models import Tasks, CountAcceptedTasks
 
 
 class CreateTaskSerializer(serializers.ModelSerializer):
@@ -62,4 +62,13 @@ class ReturnTaskSerializer(serializers.ModelSerializer):
         fields = (
             "task_status",
             "task_flag",
+        )
+
+
+class CountAcceptedTasksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CountAcceptedTasks
+        fields = (
+            "count",
+            "date"
         )

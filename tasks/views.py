@@ -1,12 +1,14 @@
+from django.db.models import Count
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
-from .models import Tasks
+from .models import Tasks, CountAcceptedTasks
 from .serializers import CreateTaskSerializer, GetTaskSerializer,\
-    EmployeeGetTaskSerializer, SendTaskToCheckSerializer, AcceptTaskSerializer, ReturnTaskSerializer
+    EmployeeGetTaskSerializer, SendTaskToCheckSerializer, AcceptTaskSerializer\
+    , ReturnTaskSerializer, CountAcceptedTasksSerializer
 
 
 @api_view(['POST'])
@@ -114,3 +116,25 @@ def DeleteTaskView(request, task_id):
     if request.method == "DELETE":
         item.delete()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_count_accepted_task_view(request):
+    serializer = CountAcceptedTasksSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_count_acepted_task_view(request):
+    item = CountAcceptedTasks.objects.values('date').annotate(count=Count('count')).order_by('date')
+    print(item)
+    serializer = CountAcceptedTasksSerializer(item, many=True)
+    return Response(serializer.data)
+
+
+

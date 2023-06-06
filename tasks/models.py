@@ -26,3 +26,8 @@ class Tasks(models.Model):
     class Meta:
         verbose_name = 'Задача'
         verbose_name_plural = 'Задачи'
+
+
+class CountAcceptedTasks(models.Model):
+    count = models.IntegerField()
+    date = models.DateField()

@@ -10,6 +10,8 @@ class Chat(models.Model):
         (FILE, 'FILE')
     )
     user_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=100, default=None)
+    user_avatar = models.CharField(max_length=255, default=None)
     type = models.PositiveSmallIntegerField(choices=STATUS, blank=True, null=True, default=1)
     text = models.TextField(max_length=255)
     send_time = models.DateTimeField()
